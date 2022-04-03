@@ -11,18 +11,11 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class TestOneWithRemoteGrid {
 	
-	
-	 static String username = "haritagr16";
-	    static String accesskey = "KhRUhWBtSMg06DfGkKDY1khYNJm95695WV42HfaYPot7nqQfw6";
-	    static RemoteWebDriver driver = null;
-	    static String gridURL = "@hub.lambdatest.com/wd/hub";
-	    static boolean status = false;
-	    
-//    static String username = "YOUR_USERNAME";
-//    static String accesskey = "YOUR_ACCESS_KEY";
-//    static RemoteWebDriver driver = null;
-//    static String gridURL = "@hub.lambdatest.com/wd/hub";
-//    static boolean status = false;
+	static String username = "YOUR_USERNAME";
+    static String accesskey = "YOUR_ACCESS_KEY";
+    static RemoteWebDriver driver = null;
+    static String gridURL = "@hub.lambdatest.com/wd/hub";
+    static boolean status = false;
     
 
 	public static void main(String[] args) {
