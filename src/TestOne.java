@@ -4,7 +4,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TestOne {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		
 		System.setProperty("webdriver.chrome.driver", "E:/Selenium/chromedriver.exe");
 		
@@ -13,15 +13,25 @@ public class TestOne {
         //Maximize window		
         driver.manage().window().maximize();	
         
-        //Launching the Site.		
-        driver.get("https://opensource-demo.orangehrmlive.com/");
+        //Launch the Site.		
+        driver.get("https://www.lambdatest.com/selenium-playground/simple-form-demo");
         
-        //Login to site 		
-        driver.findElement(By.name("txtUsername")).sendKeys("Admin");					
-        driver.findElement(By.name("txtPassword")).sendKeys("admin123");	
-        driver.findElement(By.name("Submit")).click();   
+        //Enter values into form and submit
         
-        //Close browser
+        driver.findElement(By.id("sum1")).sendKeys("2");					
+        driver.findElement(By.id("sum2")).sendKeys("5");	
+        driver.findElement(By.xpath("//*[@id='gettotal']/button")).click();  
+        
+        //Verify the result
+        String result = driver.findElement(By.xpath("//*[@id=\'addmessage\']")).getText();
+        
+        if( Integer.parseInt(result) == 7) {
+        	 System.out.println("Test Success");
+        } else {
+        	 System.out.println("Test Failed - " + result);
+        }                
+        
+        //Close the browser
         driver.quit();	       		
 	}
 }

@@ -2,6 +2,7 @@
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -16,16 +17,21 @@ public class TestOneWithRemoteGrid {
     static RemoteWebDriver driver = null;
     static String gridURL = "@hub.lambdatest.com/wd/hub";
     static boolean status = false;
-    
-
+	
 	public static void main(String[] args) {
 		
 		DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("browserName", "chrome");
-        capabilities.setCapability("version", "70.0");
-        capabilities.setCapability("platform", "win10");
-        capabilities.setCapability("build", "SeleniumJava");
-        capabilities.setCapability("name", "LambdaTestJavaSample");
+    	capabilities.setCapability("browserName", "Chrome");
+    	capabilities.setCapability("browserVersion", "101.0");
+    	HashMap<String, Object> ltOptions = new HashMap<String, Object>();
+    	ltOptions.put("user",username);
+    	ltOptions.put("accessKey",accesskey);
+    	ltOptions.put("build", "Selenium Java Test");
+    	ltOptions.put("name", "TestOne");
+    	ltOptions.put("platformName", "Windows 11");
+    	ltOptions.put("selenium_version","4.1.2");
+    	ltOptions.put("driver_version","101.0");
+    	capabilities.setCapability("LT:Options", ltOptions);
        
         try {
             driver = new RemoteWebDriver(new URL("https://" + username + ":" + accesskey + gridURL), capabilities);
@@ -39,13 +45,22 @@ public class TestOneWithRemoteGrid {
         //Maximize window		
         driver.manage().window().maximize();	
         
-        //Launching the Site.		
-        driver.get("https://opensource-demo.orangehrmlive.com/");
+        //Launch the Site.		
+        driver.get("https://www.lambdatest.com/selenium-playground/simple-form-demo");
         
-        //Login to site 		
-        driver.findElement(By.name("txtUsername")).sendKeys("Admin");					
-        driver.findElement(By.name("txtPassword")).sendKeys("admin123");	
-        driver.findElement(By.name("Submit")).click();   
+        //Enter values into form and submit        
+        driver.findElement(By.id("sum1")).sendKeys("2");					
+        driver.findElement(By.id("sum2")).sendKeys("5");	
+        driver.findElement(By.xpath("//*[@id='gettotal']/button")).click();  
+        
+        //Verify the result
+        String result = driver.findElement(By.xpath("//*[@id=\'addmessage\']")).getText();
+        
+        if( Integer.parseInt(result) == 7) {
+        	 System.out.println("Test Success");
+        } else {
+        	 System.out.println("Test Failed - " + result);
+        }                
         
         //Close browser
         driver.quit();	                   
